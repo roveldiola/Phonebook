@@ -3,11 +3,12 @@
 include ('server.php');
 
 require 'db.php';
-$id = $_GET['id'];
+$id = $_GET ['id'];
 $sql = 'SELECT * FROM people WHERE id=:id';
 $statement = $connection->prepare($sql);
 $statement->execute([':id' => $id ]);
 $person = $statement->fetch(PDO::FETCH_OBJ);
+
 if (isset ($_POST['name'])  && isset($_POST['phone']) ) { 
 
   $name = $_POST['name'];
@@ -15,7 +16,7 @@ if (isset ($_POST['name'])  && isset($_POST['phone']) ) {
   $sql = 'UPDATE people SET name=:name, phone=:phone WHERE id=:id';
   $statement = $connection->prepare($sql);
   if ($statement->execute([':name' => $name, ':phone' => $phone, ':id' => $id])) {
-    header("Location: index.php?username=".$row['username']);
+    header("Location: index.php?username=".$person->username);
   }
 }
  ?>

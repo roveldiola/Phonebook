@@ -8,9 +8,9 @@ if (isset ($_POST['name'])  && isset($_POST['phone']) ) {
   $username = $_GET['username'];
   $name = $_POST['name'];
   $phone = $_POST['phone'];
-  $sql = 'INSERT INTO people(name, phone) VALUES(:name, :phone)';
+  $sql = 'INSERT INTO people(name, phone, username) VALUES(:name, :phone, :username)';
   $statement = $connection->prepare($sql);
-  if ($statement->execute([':name' => $name, ':phone' => $phone])) {
+  if ($statement->execute([':name' => $name, ':phone' => $phone, ':username' => $username])) {
     $message = 'data inserted successfully';
   }
 }

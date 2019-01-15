@@ -12,7 +12,9 @@ include ('server.php');
     }
 
 require 'db.php';
-$sql = 'SELECT * FROM people';
+
+$username = $_GET['username'];
+$sql = 'SELECT * FROM people JOIN users ON users.username = people.username';
 $statement = $connection->prepare($sql);
 $statement->execute();
 $people = $statement->fetchAll(PDO::FETCH_OBJ);
@@ -28,17 +30,17 @@ $people = $statement->fetchAll(PDO::FETCH_OBJ);
         <tr>
           <th>ID</th>
           <th>Name</th>
-          <th>phone</th>
+          <th>Phone</th>
           <th>Action</th>
         </tr>
         <?php foreach($people as $person): ?>
           <tr>
             <td><?= $person->id; ?></td>
-            <td><?= $person->name; ?></td>
-            <td><?= $person->phone; ?></td>
+            <td><? echo $person->name; ?></td>
+            <td><? echo $person->phone; ?></td>
             <td>
-              <a href="edit.php?id=<?= $person->id ?>" class="btn btn-info">Edit</a>
-              <a onclick="return confirm('Are you sure you want to delete this entry?')" href="delete.php?id=<?= $person->id ?>" class='btn btn-danger'>Delete</a>
+              <a href="edit.php?id=<? echo $person->id ?>" class="btn btn-info">Edit</a>
+              <a onclick="return confirm('Are you sure you want to delete this entry?')" href="delete.php?id=<? echo $person->id ?>" class='btn btn-danger'>Delete</a>
             </td>
           </tr>
         <?php endforeach; ?>
